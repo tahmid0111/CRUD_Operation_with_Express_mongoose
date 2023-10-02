@@ -10,4 +10,8 @@ router.get('/readclient', clientController.readtClient)
 
 router.post('/createclient', clientController.createClient)
 
+router.post('/updateclient/:id', clientController.updateClient)
+
+router.get('/deleteclient/:id', clientController.deleteClient)
+
 module.exports = router;
