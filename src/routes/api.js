@@ -5,6 +5,8 @@ const router = express.Router();
 const clientController = require('../controllers/createClientController');
 router.get('/', clientController.homepage)
 
+router.get('/readclient', clientController.readtClient)
+
 
 router.post('/createclient', clientController.createClient)
 

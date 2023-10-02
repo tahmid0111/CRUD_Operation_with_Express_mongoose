@@ -10,12 +10,12 @@ const router = require('./src/routes/api');
 app.use(bodyParser.json())
 app.use(cors())
 
-let URI="mongodb://localhost:27017/clients";
+let URI="mongodb+srv://01tahmidemam:HR7CNUZlWp2RwZA2@cluster0.xxhkesf.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(URI)
 
 
-app.use(router)
+app.use('/user', router)
 
 
 
