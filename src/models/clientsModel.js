@@ -18,6 +18,18 @@ const MongoSchema = mongoose.Schema({
             values: ['bd', 'agf'],
             message: `you should be from bd or afg not from {VALUE}`
         }
+    },
+    phone: {
+        type: Number,
+        validate: {
+            validator: (v)=> {
+                if(v==10){
+                    return 'right'
+                }else{
+                    return 'wrong'
+                }
+            }
+        }
     }
 })
 
