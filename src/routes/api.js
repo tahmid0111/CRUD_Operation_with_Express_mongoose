@@ -3,7 +3,6 @@ const router = express.Router();
 
 // const { homepage } = require('../controllers/homepageController');
 const clientController = require('../controllers/createClientController');
-router.get('/', clientController.homepage)
 
 router.get('/readclient', clientController.readtClient)
 
