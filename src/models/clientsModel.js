@@ -4,13 +4,11 @@ const MongoSchema = mongoose.Schema({
     name: {
         type: String,
         required: [true, 'please put your name'],
-        unique: true
     },
     age: {
         type: Number,
         min: 18,
         max: [30, `your age is more than 30` ],
-        required: true,
     },
     country: {
         type: String,
