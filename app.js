@@ -15,7 +15,6 @@ let URI=process.env.URI;
 
 mongoose.connect(URI)
 
-
 app.use('/user', router)
 
 
