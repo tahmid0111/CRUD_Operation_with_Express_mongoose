@@ -1,22 +1,17 @@
-const express = require('express');
-const router = express.Router();
+const express=require('express');
+const router=express.Router()
 
-// Token Issue
-const { tokenIssue } = require('../controllers/tokenIssue');
-router.get('/tokenissue', tokenIssue)
+// imported profile Controller
+const { register, login, readProfile, updateProfile, deleteProfile } = require('../controllers/profileController');
+const { authVerify } = require('../middleware/authVerify');
 
 
+router.post('/register', register)
+router.post('/login', login)
 
-// Basic CRUD Operations
-const clientController = require('../controllers/createClientController');
-const checkToken = require('../middleware/checkToken');
+router.get('/readprofile',authVerify, readProfile)
+router.post('/updateprofile',authVerify, updateProfile)
+router.post('/deleteprofile',authVerify, deleteProfile)
 
-// sign up 
-// username pass 
-
-router.get('/readclient', checkToken, clientController.readtClient)
-router.post('/createclient', checkToken, clientController.createClient)
-router.post('/updateclient/:id', checkToken, clientController.updateClient)
-router.get('/deleteclient/:id', checkToken, clientController.deleteClient)
 
 module.exports = router;
