@@ -35,17 +35,17 @@ exports.login = async (req, res) => {
 
     try {
 
-        const data = await profileModel.findOne(Querry)
+        const alldata = await profileModel.findOne(Querry)
         
-        if(data) {
+        if(alldata) {
 
-            const result = await bcrypt.compare(reqBody.Password, data.Password)
+            const result = await bcrypt.compare(reqBody.Password, alldata.Password)
 
             if(result) {
 
                 let Payload = {
                     exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60),
-                    data: reqBody.Email
+                    data: alldata
                 }
                 let token = jwt.sign(Payload, 'secretkey')
 

@@ -4,12 +4,14 @@ const profileSchema = mongoose.Schema({
 
     UserName: {
         type: String,
-        required: [true, 'please enter your name']
+        required: [true, 'please enter your name'],
+        unique: true
     },
 
     Email: {
         type: String,
-        required: [true, 'you must have an e-mail account']
+        required: [true, 'you must have an e-mail account'],
+        unique: true
     },
 
     Country: String,
@@ -19,7 +21,11 @@ const profileSchema = mongoose.Schema({
         required: [true, 'please enter a strong password']
     }
     
-})
+},
+{
+    timestamps: true
+}
+)
 
 const profileModel = mongoose.model('clients', profileSchema)
 

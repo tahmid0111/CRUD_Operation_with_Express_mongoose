@@ -7,10 +7,13 @@ exports.authVerify = (req, res, next) => {
 
     try {
 
-        const decoded = jwt.verify(Token, 'secret')
+        const decoded = jwt.verify(Token, 'secretkey')
 
-        let email = decoded.data
+        let email = decoded.data.Email
+        let username = decoded.data.UserName
+
         req.headers.Email = email
+        req.headers.UserName = username
 
         next()
 
