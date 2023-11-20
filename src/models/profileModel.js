@@ -15,7 +15,7 @@ const profileSchema = mongoose.Schema({
     Country: String,
 
     Password: {
-        type: Number,
+        type: String,
         required: [true, 'please enter a strong password']
     }
     

@@ -1,15 +1,23 @@
 const profileModel = require('../models/profileModel')
 
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
 
 exports.register = async (req, res) => {
 
     let reqBody = req.body
+    let hashedPassword = await bcrypt.hash(reqBody.Password, 10)
+    let myBody = {
+        UserName: reqBody.UserName,
+        Email: reqBody.Email,
+        Country: reqBody.Country,
+        Password: hashedPassword
+    }
 
     try {
 
-        const data = await profileModel.create(reqBody)
+        const data = await profileModel.create(myBody)
         res.json({status: 'successfully registered', data: data})
 
     } catch (error) {
@@ -23,24 +31,32 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
 
     let reqBody = req.body
+    let Querry = {Email: reqBody.Email}
 
     try {
+
+        const data = await profileModel.findOne(Querry)
         
-        const data = await profileModel.find(reqBody)
+        if(data) {
 
-        if (data) {
-            
-            let Payload = {
-                exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60),
-                data: reqBody.Email
+            const result = await bcrypt.compare(reqBody.Password, data.Password)
+
+            if(result) {
+
+                let Payload = {
+                    exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60),
+                    data: reqBody.Email
+                }
+                let token = jwt.sign(Payload, 'secretkey')
+
+                res.json({status: 'login successful', data: token})
+
+            }else{
+                res.json({status: 'invalid username or password'})
             }
-            let token = jwt.sign(Payload, 'secret')
-
-            res.json({status: 'login complete', data: token})
-
-        } else {
-            res.json({status: 'invalid email or password'})
         }
+
+
 
     } catch (error) {
 
