@@ -6,7 +6,7 @@ const { register, login, readProfile, updateProfile, deleteProfile } = require('
 
 const { authVerify } = require('../middleware/authVerify');
 
-const { createTodo, readAllTodo, readnewtodos } = require('../controllers/todoController');
+const { createTodo, readAllTodo, readnewtodos, readSingleTodo, readTodosByStatus, updateStatus } = require('../controllers/todoController');
 
 
 router.post('/register', register)
@@ -18,7 +18,9 @@ router.post('/deleteprofile',authVerify, deleteProfile)
 
 router.post('/createtodo', authVerify, createTodo)
 router.get('/readalltodo', authVerify, readAllTodo)
-router.get('/readnewtodos/:status', authVerify, readnewtodos)
+router.post('/readsingletodo/:id', authVerify, readSingleTodo)
+router.get('/readtodosbystatus/:status', authVerify, readTodosByStatus)
+router.post('/updatetodostatus/:id/:status', authVerify, updateStatus)
 
 
 module.exports = router;

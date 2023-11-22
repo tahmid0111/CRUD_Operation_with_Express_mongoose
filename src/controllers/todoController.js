@@ -1,5 +1,6 @@
-const todoModel =require('../models/todoModel')
+const todoModel =require('../models/todoModel') //imported the todo model
 
+// this is for creating a new todo
 exports.createTodo = async (req, res) => {
     let reqBody = req.body
     let todostatus = 'new'
@@ -22,6 +23,7 @@ exports.createTodo = async (req, res) => {
     }
 }
 
+// this is for reading all todos together
 exports.readAllTodo = async (req, res) => {
 
     let email = req.headers.email
@@ -37,8 +39,24 @@ exports.readAllTodo = async (req, res) => {
     }
 }
 
+// here you can see a single todo
+exports.readSingleTodo = async (req, res) => {
 
-exports.readnewtodos = async (req, res) => {
+    let id = req.params.id
+    let Querry = {_id:id}
+    try {
+        const result = await todoModel.find(Querry)
+
+        res.json({status: "your todo is here", data: result})
+        
+    } catch (error) {
+        res.json({status: 'something went wrong'})
+    }
+
+}
+
+// here you can filter all the todos by status
+exports.readTodosByStatus = async (req, res) => {
     let email = req.headers.Email
     let status = req.params.status
     let Querry = {Email: email, TodoStatus: status}
@@ -47,6 +65,28 @@ exports.readnewtodos = async (req, res) => {
         const data = await todoModel.find(Querry)
 
         res.json({status: 'all the todos are here', data: data})
+        
+    } catch (error) {
+        res.json({status: 'something went wrong'})
+    }
+}
+
+// here you can update your todoStatus
+
+exports.updateStatus = async (req, res) => {
+
+    let id = req.params.id
+    let Querry = {_id: id}
+    let updatedStatus = req.params.status
+    let update = {
+        TodoStatus: updatedStatus
+    }
+
+    try {
+
+        const result = await todoModel.updateOne(Querry, update)
+
+        res.json({status: 'all the todos are here', data: result})
         
     } catch (error) {
         res.json({status: 'something went wrong'})
