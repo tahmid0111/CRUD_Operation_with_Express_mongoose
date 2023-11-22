@@ -92,3 +92,32 @@ exports.updateStatus = async (req, res) => {
         res.json({status: 'something went wrong'})
     }
 }
+
+// here you can delete a todo
+exports.removeOne = async (req, res) => {
+    let id = req.params.id
+    try {
+
+        const result = await todoModel.findByIdAndDelete(id)
+
+        res.json({status: 'todo has been removed', data: result})
+    } catch (error) {
+        res.json({status: 'something went wrong'})
+    }
+}
+
+
+// here you can delete all the todos
+exports.removeAll = async (req, res) => {
+
+    let username = req.params.username
+    let Querry = {UserName: username}
+    try {
+
+        const result = await todoModel.deleteMany(Querry)
+
+        res.json({status: 'successfully removed all your todos', data: result})
+    } catch (error) {
+        res.json({status: 'something went wrong'})
+    }
+}
