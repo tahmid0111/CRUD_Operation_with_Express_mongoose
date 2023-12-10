@@ -6,7 +6,7 @@ const { register, login, readProfile, updateProfile, deleteProfile } = require('
 
 const { authVerify } = require('../middleware/authVerify');
 
-const { createTodo, readAllTodo, readnewtodos, readSingleTodo, readTodosByStatus, updateStatus, removeOne, removeAll } = require('../controllers/todoController');
+const { createTodo, readAllTodo, readSingleTodo, readTodosByStatus, updateStatus, removeOne, removeAll } = require('../controllers/todoController');
 
 // all profile related APIS are here
 router.post('/register', register)
@@ -16,7 +16,7 @@ router.post('/updateprofile',authVerify, updateProfile)
 router.post('/deleteprofile',authVerify, deleteProfile)
 
 
-// all todo related APIS are here 
+// all todo related APIS are here
 router.post('/createtodo', authVerify, createTodo)
 router.get('/readalltodo', authVerify, readAllTodo)
 router.post('/readsingletodo/:id', authVerify, readSingleTodo)

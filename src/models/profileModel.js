@@ -14,7 +14,9 @@ const profileSchema = mongoose.Schema({
         unique: true
     },
 
-    Country: String,
+    Country: {
+        type: String
+    },
 
     Password: {
         type: String,
